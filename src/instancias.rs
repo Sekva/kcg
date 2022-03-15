@@ -45,7 +45,7 @@ pub fn gerar_instancias(n_itens: u64) -> Result<(Pesos, Valores, Multas, f64), (
 
         let mut achado = false;
         for (u2, v2, _) in &multas {
-            achado |= u2 == &u && v2 == &v || u2 == &v && v2 == &u;
+            achado |= (u2 == &u && v2 == &v) || (u2 == &v && v2 == &u);
         }
         if achado {
             continue;

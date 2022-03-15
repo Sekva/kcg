@@ -10,6 +10,36 @@ use crate::{
 };
 
 #[test]
+fn printar_instancia() {
+    let n_instancias = std::env::var("NINST")
+        .unwrap_or("20".to_string())
+        .parse()
+        .unwrap_or(20);
+
+    let (pesos, valores, multas, b) = &gerar_instancias(n_instancias).unwrap();
+
+    let mut str_in: String = "".into();
+
+    str_in.push_str(&format!("{} ", valores.len()));
+    str_in.push_str(&format!("{} ", *b as i64));
+    str_in.push_str(&format!("{}\n", multas.len()));
+
+    for valor in valores {
+        str_in.push_str(&format!("{}\n", *valor as i64));
+    }
+
+    for peso in pesos {
+        str_in.push_str(&format!("{}\n", *peso as i64));
+    }
+
+    for (i, j, d) in multas {
+        str_in.push_str(&format!("{} {} {}\n", i, j, *d as i64));
+    }
+
+    println!("{}", str_in);
+}
+
+#[test]
 fn libcplex() {
     let n_itens = 50;
     let (pesos, valores, multas, b) = &gerar_instancias(n_itens).unwrap();
